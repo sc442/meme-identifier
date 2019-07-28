@@ -27,7 +27,7 @@ def populateMemeData():
             if row['Base Meme Name'] not in memesContained:
                 memesContained.append(row['Base Meme Name'])
                 memeDataList.append(row)
-
+                
 def populateImageURLList():
     global memeDataList, imageURLList
 
@@ -37,10 +37,11 @@ def populateImageURLList():
 def downloadImages():
     count = 0
     for url in imageURLList:
-        count += 1
         img_data = requests.get(url).content
-        with open('imagefolder/' + str(count) + '.jpg', 'wb') as handler:
+        with open('imagefolder/' + memeDataList[count]['Base Meme Name'] + '.jpg', 'wb') as handler:
             handler.write(img_data)
+        count += 1
+
 
 def main():
     populateMemeData()
