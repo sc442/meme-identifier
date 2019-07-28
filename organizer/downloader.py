@@ -20,10 +20,13 @@ imageURLList = []
 
 def populateMemeData():
     global memeDataList
+    memesContained = []
     with open('memegenerator.csv', 'r', encoding='utf-16') as memedata:
         reader = csv.DictReader(memedata,delimiter='\t')
         for row in reader:
-            memeDataList.append(row)
+            if row['Base Meme Name'] not in memesContained:
+                memesContained.append(row['Base Meme Name'])
+                memeDataList.append(row)
 
 def populateImageURLList():
     global memeDataList, imageURLList
