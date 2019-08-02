@@ -1,3 +1,9 @@
+import cv2
+import numpy as np
+from skimage import io
+
+import os
+
 #
 # colorclassifier.py
 #
@@ -15,6 +21,7 @@ class ColorClassifier:
             'Black': (0,0,0),
             'White': (255,255,255),
             'Red' : (255,0,0),
+            'Orange' : (255,165,0),
             'Lime': (0,255,0),
             'Blue' : (0,0,255),
             'Yellow' : (255,255,0),
@@ -30,7 +37,32 @@ class ColorClassifier:
             'Navy' : (0,0,128)
         }
 
-    def classify(self,color):
+    def __calculateRGB(self, img):
+        try:
+            img = io.imread(img)
+        except:
+            return (-1,-1,-1)
+
+        pixels = np.float32(img.reshape(-1, 3))
+
+        n_colors = 5
+        criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 200, .1)
+        flags = cv2.KMEANS_RANDOM_CENTERS
+
+        _, labels, palette = cv2.kmeans(pixels, n_colors, None, criteria, 10, flags)
+        _, counts = np.unique(labels, return_counts=True)
+
+        dominant = palette[np.argmax(counts)]
+
+        return dominant
+
+    def classify(self,img):
+
+        color = self.__calculateRGB(img)
+
+        if color[0] == -1:
+            return '!Woops!'
+
         DistanceDict = {}
         RGBdict = self.__RGBdict
         for c in RGBdict:

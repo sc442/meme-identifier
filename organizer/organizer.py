@@ -1,36 +1,41 @@
-import cv2
-import numpy as np
-from skimage import io
-
 from colorclassifier import *
+from downloader import *
+
+import os
 
 # organizer.py
 #
 # Seung-Woo Choi 2019
 #
-# Organizes images in imagefolder into color averages.
+# Downloads and Organizes images in imagefolder into color averages.
+# Library of Congress Meme Generator Dataset
+# https://labs.loc.gov/experiments/webarchive-datasets/
 #
 
+dl = Downloader()
+clc = ColorClassifier()
 
-###################################
+def moveIntoFolder(img, color):
+    split = img.split('/')
+    imgname = split[len(split) -1]
+    print(imgname)
 
-img = io.imread('imagefolder/Alright Then Business Kid.jpg')
+    imgdir = os.path.dirname(img)
+    colordir = imgdir + '/' + color
+    os.mkdir(colordir)
+    os.rename(img, colordir+'/'+imgname)
 
-pixels = np.float32(img.reshape(-1, 3))
 
-n_colors = 5
-criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 200, .1)
-flags = cv2.KMEANS_RANDOM_CENTERS
+def main():
+    while not dl.isDone():
+        img = dl.downloadNextImage()
 
-_, labels, palette = cv2.kmeans(pixels, n_colors, None, criteria, 10, flags)
-_, counts = np.unique(labels, return_counts=True)
+        print(img)
+        color = clc.classify(img)
 
-dominant = palette[np.argmax(counts)]
+        moveIntoFolder(img,color)
 
-indices = np.argsort(counts)[::-1]
+    print("Finished downloading and organizing template images!")
 
-for i in range(3):                      # Print the 3 most common RGB Values
-    print('Common rgb value', i, ':', palette[indices[i]])
 
-clrcls = ColorClassifier()
-print('Primary color is: ', clrcls.classify(palette[indices[0]]))
+main()

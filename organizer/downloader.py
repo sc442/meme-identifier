@@ -1,9 +1,7 @@
 import string
 import csv
-import pandas as pd
-import matplotlib.pyplot as plt
 import requests
-
+import os
 
 # downloader.py
 #
@@ -15,37 +13,50 @@ import requests
 # https://github.com/LibraryOfCongress/data-exploration/blob/master/getting_started_with_memegenerator.ipynb
 #
 
-memeDataList = []
-imageURLList = []
+class Downloader:
+    __memeDataList = []
+    __imageURLList = []
+    __urlIterator = 0
 
-def populateMemeData():
-    global memeDataList
-    memesContained = []
-    with open('memegenerator.csv', 'r', encoding='utf-16') as memedata:
-        reader = csv.DictReader(memedata,delimiter='\t')
-        for row in reader:
-            if row['Base Meme Name'] not in memesContained:
-                memesContained.append(row['Base Meme Name'])
-                memeDataList.append(row)
-                
-def populateImageURLList():
-    global memeDataList, imageURLList
+    def __init__(self):
+        self.__populateMemeData()
+        self.__populateImageURLList()
+        self.__urlIterator = 0
 
-    for row in memeDataList:
-        imageURLList.append(row['Archived URL'])
 
-def downloadImages():
-    count = 0
-    for url in imageURLList:
+    def __populateMemeData(self):
+        memesContained = []
+        with open('memegenerator.csv', 'r', encoding='utf-16') as memedata:
+            reader = csv.DictReader(memedata,delimiter='\t')
+            for row in reader:
+                if row['Base Meme Name'] not in memesContained:
+                    memesContained.append(row['Base Meme Name'])
+                    self.__memeDataList.append(row)
+
+    def __populateImageURLList(self):
+        for row in self.__memeDataList:
+            self.__imageURLList.append(row['Archived URL'])
+
+    def isDone(self):
+        if self.__urlIterator >= 3:
+        # if self.__urlIterator >= len(self.__imageURLList):
+            return True
+        else:
+            return False
+
+    def downloadNextImage(self):
+        count = self.__urlIterator
+
+        imageFolderPath = os.path.dirname(os.getcwd()) + '/imagefolder'
+
+        if not os.path.isdir(imageFolderPath):
+            os.mkdir(imageFolderPath)
+
+        url = self.__imageURLList[count]
+
         img_data = requests.get(url).content
-        with open('imagefolder/' + memeDataList[count]['Base Meme Name'] + '.jpg', 'wb') as handler:
+        with open(imageFolderPath + '/' + self.__memeDataList[count]['Base Meme Name'] + '.jpg', 'wb') as handler:
             handler.write(img_data)
-        count += 1
+        self.__urlIterator += 1
 
-
-def main():
-    populateMemeData()
-    populateImageURLList()
-    downloadImages()
-
-main()
+        return imageFolderPath + '/' + self.__memeDataList[count]['Base Meme Name'] + '.jpg'

@@ -1,0 +1,89 @@
+
+        
+
+
+
+
+
+<!-- HEADER -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		      
+		<link rel="stylesheet" type="text/css" 
+			href="https://webarchive.loc.gov/all/css/styles.css"
+			src="https://webarchive.loc.gov/all/css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+		<title>Library of Congress Web Archives</title>
+		<base target="_top" />
+
+		<!--LC Click Traffic Tracker-->
+		<script type='text/javascript' src='http://www.loc.gov/global/s_code.js'></script>
+		<style type="text/css" >
+			@-moz-document url-prefix() {
+    				button.search-button {
+         				margin-top:-3px!important;
+			    	}
+
+			}
+		</style>
+	</head>
+
+	<body bgcolor="white" alink="red" vlink="#0000aa" link="blue" 
+		style="font-family: Arial; font-size: 10pt">
+
+                <div id="position">
+                      <!-- OPENWAYBACK LOGO -->
+                      <br>
+                      <a href="http://loc.gov/websites">
+                        <img src="https://webarchive.loc.gov/all/images/logo-webtopper.png" alt="logo: Library of Congress" />
+                      </a>
+					  <!-- Ask a librarian -->
+					  <div class="askalibrarian"><a href="http://www.loc.gov/rr/askalib/ask-digital.html">Ask a Librarian</a></div>
+                </div>
+<!-- /HEADER -->
+<div id="position">
+
+
+    <div id="wbSearch">
+        <div id="form">
+                
+
+
+<form name="form1" method="get" action="https://webarchive.loc.gov/all/query">
+	<input type="hidden" name="type" value="urlquery">
+	<input class="search-input" type="text" name="url" placeholder="Search for a URL in the web archive" size="50" maxlength="256">
+	<button class="search-button" type="submit" value="submit"><i class="fa fa-search"></i></button>
+</form>
+
+                <hr>
+
+
+
+        <br><br>
+        <div id="position">
+            <section>
+            <!--
+            <div id="logoHome">
+                <a href="/index.jsp"><h1><span>OpenWayback</span></h1></a>
+            </div>
+            -->
+            </section>
+            <section>
+            <div id="error">
+	<script type="text/javascript">
+	function go() {
+		document.location.href = "https:\/\/webarchive.loc.gov\/all\/20160410182724\/https:\/\/cdn.meme.am\/instances\/20612245.jpg";
+	}
+	window.setTimeout("go()",5000);
+	</script>
+		<p class="code">Loading...</p>
+		<p class="code shift target">http://cdn.meme.am/instances/20612245.jpg | 18:27:24 Apr 10, 2016</p>
+		<p class="code shift red">Got an HTTP 302 response at crawl time</p>
+		<p class="code">Redirecting to...</p>
+		<p class="code shift target">https://cdn.meme.am/instances/20612245.jpg</p>
+                <p class="impatient"><a href="https://webarchive.loc.gov/all/20160410182724/https://cdn.meme.am/instances/20612245.jpg">Impatient?</a></p>
+            </div>
+            </section>
+            <div id="errorBorder"></div>
