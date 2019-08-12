@@ -38,7 +38,8 @@ class Downloader:
             self.__imageURLList.append(row['Archived URL'])
 
     def isDone(self):
-        # if self.__urlIterator >= 3:
+        print('Progress:', self.__urlIterator + 1, '/', len(self.__imageURLList))
+
         if self.__urlIterator >= len(self.__imageURLList):
             return True
         else:
@@ -55,7 +56,9 @@ class Downloader:
         url = self.__imageURLList[count]
 
         img_data = requests.get(url).content
-        with open(imageFolderPath + '/' + self.__memeDataList[count]['Base Meme Name'] + '.jpg', 'wb') as handler:
+
+        memefilename = imageFolderPath + '/' + self.__memeDataList[count]['Base Meme Name'] + '.jpg'
+        with open(memefilename, 'wb') as handler:
             handler.write(img_data)
         self.__urlIterator += 1
 
