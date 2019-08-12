@@ -39,8 +39,9 @@ def siftThroughColor(inputfile, colors):
 
     dirname = os.path.dirname(os.getcwd())
 
+    print('Searching through: ')
     for c in colors[:2]:
-        print(c)
+        print('\t',c)
         targetdir = dirname + '/imagefolder/' + c[0]
 
         for file in os.listdir(os.fsencode(targetdir)):
