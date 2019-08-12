@@ -22,12 +22,12 @@ def getInputImage():
     inputfile = input()
     return inputfile
 
-def getDominantColor(img):
+def getDominantColors(img):
     cls = ColorClassifier()
     color = cls.classify(img)
     return color
 
-def siftThroughColor(inputfile, color):
+def siftThroughColor(inputfile, colors):
     KEYPOINT_COUNT = 10
 
     # Adding all templates to list
@@ -38,12 +38,12 @@ def siftThroughColor(inputfile, color):
 
     dirname = os.path.dirname(os.getcwd())
 
-    # Need to figure out parent directory, then color directory
+    for c in colors[:2]:
+        print(c)
+        targetdir = dirname + '/imagefolder/' + c[0]
 
-    targetdir = dirname + '/imagefolder/' + color
-
-    for file in os.listdir(os.fsencode(targetdir)):
-        templates[os.fsdecode(file)] = cv2.imread(targetdir + '/' + os.fsdecode(file), cv2.IMREAD_GRAYSCALE)
+        for file in os.listdir(os.fsencode(targetdir)):
+            templates[os.fsdecode(file)] = cv2.imread(targetdir + '/' + os.fsdecode(file), cv2.IMREAD_GRAYSCALE)
 
     alg = cv2.xfeatures2d.SIFT_create()
 
@@ -87,8 +87,7 @@ def siftThroughColor(inputfile, color):
 
 def main():
     inp = getInputImage()
-    color = getDominantColor(inp)
-    print('color:', color)
-    siftThroughColor(inp, color)
+    colors = getDominantColors(inp)
+    siftThroughColor(inp, colors)
 
 main()

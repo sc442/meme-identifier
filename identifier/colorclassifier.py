@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from skimage import io
+import operator
 
 import os
 
@@ -58,6 +59,8 @@ class ColorClassifier:
 
     def classify(self,img):
 
+        # Returns a dictionary of colors with values, lower it is the better match it is.
+
         color = self.__calculateRGB(img)
 
         if color[0] == -1:
@@ -69,7 +72,9 @@ class ColorClassifier:
             distance = self.__calculateDistance(color, RGBdict[c])
             DistanceDict[c] = distance
 
-        return min(DistanceDict, key=DistanceDict.get)
+        sorted_dict = sorted(DistanceDict.items(), key=operator.itemgetter(1))
+
+        return sorted_dict
 
     def __calculateDistance(self,a, b):
         return abs(a[0] - b[0]) + abs(a[1] - b[1]) + abs(a[2] - b[2])
