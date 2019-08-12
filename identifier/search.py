@@ -3,6 +3,7 @@ from colorclassifier import *
 import cv2              # sift imports
 import os
 import numpy as np
+import operator
 
 #
 # search.py
@@ -79,11 +80,14 @@ def siftThroughColor(inputfile, colors):
             distance += matches[m][i].distance
         distances[m] = distance
     print("Input: " + inputfile)
-    print("Matched with: " + min(distances, key=lambda k: distances[k]))
-    print("")
 
-    for d in distances:
-        print(d + ": " + str(distances[d]))
+    sorted_dist = sorted(distances.items(), key=operator.itemgetter(1))
+
+
+    print("Best matches: ")
+    for d in sorted_dist[:3]:
+        # print(d[0] + ": " + str(d[1]))
+        print('\t',d[0])
 
 def main():
     inp = getInputImage()
