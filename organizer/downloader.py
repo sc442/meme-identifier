@@ -38,8 +38,8 @@ class Downloader:
             self.__imageURLList.append(row['Archived URL'])
 
     def isDone(self):
-        if self.__urlIterator >= 3:
-        # if self.__urlIterator >= len(self.__imageURLList):
+        # if self.__urlIterator >= 3:
+        if self.__urlIterator >= len(self.__imageURLList):
             return True
         else:
             return False

@@ -19,10 +19,15 @@ def moveIntoFolder(img, color):
     split = img.split('/')
     imgname = split[len(split) -1]
     print(imgname)
+    print(color)
+    print()
 
     imgdir = os.path.dirname(img)
     colordir = imgdir + '/' + color
-    os.mkdir(colordir)
+
+    if not os.path.isdir(colordir):
+        os.mkdir(colordir)
+
     os.rename(img, colordir+'/'+imgname)
 
 
@@ -30,7 +35,6 @@ def main():
     while not dl.isDone():
         img = dl.downloadNextImage()
 
-        print(img)
         color = clc.classify(img)
 
         moveIntoFolder(img,color)
