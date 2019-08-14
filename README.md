@@ -1,5 +1,7 @@
 # meme-identifier
 
+![image](coolmeme.png)
+
 Meme Identifier matches input images with memes recorded in the Library of Congress Meme Generator Dataset. In its current implementation, search.py works best with "macro image" style memes where text is superimposed upon a base image.
 
 ## Introduction
@@ -28,9 +30,11 @@ To run organizer.py: `python3 organizer.py`
 
 ### Identifier
 
-The main file, search.py, requires the version of colorclassifier.py in the identifier folder.
+The main file, search.py, requires the version of colorclassifier.py in the identifier folder. Make sure the imagefolder is already populated with color-sorted memes/images using organizer.py.
 
 To run search.py: `python3 search.py`
+
+The program will prompt the user for an image. You may copy-paste an image into the same directory, then directly type the image name ('example.jpg') to search for the type of meme.
 
 ## Recognition
 
