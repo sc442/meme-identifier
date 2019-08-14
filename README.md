@@ -1,12 +1,14 @@
 # meme-identifier
 
+![image](coolmeme.png)
+
 Meme Identifier matches input images with memes recorded in the Library of Congress Meme Generator Dataset. In its current implementation, search.py works best with "macro image" style memes where text is superimposed upon a base image.
 
 ## Introduction
 
 There are two parts to Meme Identifier:
 
-Organizer: organizer.py downloads unique memes from the Library of Congress Meme Generator Dataset, then organizes them by color using k-means clustering and identifying the dominant colors in a meme. Unique instances of a meme are stored in the directory 'meme-identifier/imagefolder'. In the version of the dataset included in this repository, there are 1788 unique memes.
+Organizer: organizer.py downloads unique memes from the Library of Congress Meme Generator Dataset, then organizes them by color using k-means clustering and identifying the dominant colors in a meme. Unique instances of a meme are stored in the directory 'meme-identifier/imagefolder'.
 
 Identifier: search.py takes an input image and identifies its dominant colors. It will then look through meme-identifier/imagefolder/[dominant color], where [dominant color] being the image's dominant color. It will also look through the second most dominant color in case of close dominance between two colors. When comparing the input image with each image in the folder, search.py uses SIFT ([Scale Invariant Feature Transform, credit to Dr David Lowe of the UBC](https://en.wikipedia.org/wiki/Scale-invariant_feature_transform)), and prints the images with the least amount of difference with the input according to SIFT. 
 
@@ -28,9 +30,11 @@ To run organizer.py: `python3 organizer.py`
 
 ### Identifier
 
-The main file, search.py, requires the version of colorclassifier.py in the identifier folder.
+The main file, search.py, requires the version of colorclassifier.py in the identifier folder. Make sure the imagefolder is already populated with color-sorted memes/images using organizer.py.
 
 To run search.py: `python3 search.py`
+
+The program will prompt the user for an image. You may copy-paste an image into the same directory, then directly type the image name ('example.jpg') to search for the type of meme.
 
 ## Recognition
 
