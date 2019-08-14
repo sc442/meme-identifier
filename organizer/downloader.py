@@ -21,7 +21,7 @@ class Downloader:
     def __init__(self):
         self.__populateMemeData()
         self.__populateImageURLList()
-        self.__urlIterator = 430
+        self.__urlIterator = 0
 
     def __populateMemeData(self):
         memesContained = []
