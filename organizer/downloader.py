@@ -21,8 +21,7 @@ class Downloader:
     def __init__(self):
         self.__populateMemeData()
         self.__populateImageURLList()
-        self.__urlIterator = 0
-
+        self.__urlIterator = 430
 
     def __populateMemeData(self):
         memesContained = []
@@ -57,9 +56,13 @@ class Downloader:
 
         img_data = requests.get(url).content
 
-        memefilename = imageFolderPath + '/' + self.__memeDataList[count]['Base Meme Name'] + '.jpg'
+        if '/' in self.__memeDataList[count]['Base Meme Name']:
+            fixedbasename = self.__memeDataList[count]['Base Meme Name'].replace('/', ' ')
+        else:
+            fixedbasename = self.__memeDataList[count]['Base Meme Name']
+        memefilename = imageFolderPath + '/' + fixedbasename + '.jpg'
         with open(memefilename, 'wb') as handler:
             handler.write(img_data)
         self.__urlIterator += 1
 
-        return imageFolderPath + '/' + self.__memeDataList[count]['Base Meme Name'] + '.jpg'
+        return imageFolderPath + '/' + fixedbasename + '.jpg'
